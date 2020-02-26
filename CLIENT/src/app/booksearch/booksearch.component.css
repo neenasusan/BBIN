@@ -1,0 +1,33 @@
+.bg-grey{
+    background-color: #E0E0E0;
+
+}
+.bigh1 h1{
+    font-size: 60px;
+}
+.cardTitle{
+    height: 40px !important;
+    padding: 10px 20px 30px 10px;
+    background-color: #E0E0E0;
+}
+.expandCollapseContent{
+    padding: 10px 10px 10px 10px;
+}
+.bookImg{
+    height:100px;
+}
+.row.bg-grey {
+    height: 100%;
+    padding: 10px 10px 10px 10px;
+}
+tr{
+    width: 300px;
+}
+td.frsCol {
+    width: 200px !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #E0E0E0;
+    color: black;
+}
