@@ -24,10 +24,27 @@ tr{
     width: 300px;
 }
 td.frsCol {
-    width: 200px !important;
+    width: 300px !important;
+    
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
     background-color: #E0E0E0;
     color: black;
 }
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  .card-single{
+      width:300px;
+      margin:20px 20px 20px 20px;
+  }
+  a > i{
+    color:black;
+  }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { StorageServiceModule } from 'ngx-webstorage-service';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {AuthGuard} from './auth/auth.guard';
 import {AuthInterceptor} from './auth/auth.interceptor';
 import {UserService} from './services/user.service';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -28,14 +30,16 @@ import {UserService} from './services/user.service';
     UserComponent,
     SignUpComponent,
     SignInComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    StorageServiceModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -45,3 +49,4 @@ import {UserService} from './services/user.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

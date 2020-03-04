@@ -18,7 +18,7 @@ export class GoogleapiService {
   constructor(private httpClient: HttpClient) { }
 
   getNews(searchText):Observable<any>{
-    const encodedURI = encodeURI("https://www.googleapis.com/books/v1/volumes?q="+searchText+"&maxResults=12&key=AIzaSyDHDCI5JYsbDRGRa5nx252a0kv43XwCpvE");
+    const encodedURI = encodeURI("https://www.googleapis.com/books/v1/volumes?q="+searchText+"&maxResults=15&key=AIzaSyDHDCI5JYsbDRGRa5nx252a0kv43XwCpvE");
     return this.httpClient.get(encodedURI);
   }
 
