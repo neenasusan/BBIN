@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class NavComponent implements OnInit {
   userDetails;
   userName:string;
+  userEmail:any;
   constructor(private userService: UserService,private router:Router) { }
 
   ngOnInit() {
@@ -18,6 +19,9 @@ export class NavComponent implements OnInit {
       res => {
         this.userDetails = res['user'];
         this.userName= this.userDetails.userName;
+        this.userEmail = this.userDetails.email;
+        localStorage.keyEmail=this.userEmail;
+        //alert(localStorage.key);
       },
       err => { 
         console.log(err);

@@ -1,25 +1,100 @@
-
 <div class="center jumbotron bg-grey bigh1">
     <h1>BOOKS</h1>
 </div>
 <div class="card container">
 <div class="card-content">
-<div class="row">
-<div class="col-7">
-
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" (click)="refreshBookList()">My Wish List</a>
+            <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Search For Books</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" (click)="refreshBookList(); resetSearch(searchForm) ">My Wish List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Coming soon</a>
-        </li>
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" (click)="resetSearch(searchForm)">My Read List</a>
+          </li>
         <li class="nav-item">
           <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Library Near Me</a>
         </li>
       </ul>
+
       <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+         
+        <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container">
+                <div class="mb-5 mt-5 center">
+                <p class="mt-5 f25 mb-2">Search A Book</p>
+                <p>Search a book with book title,author name or any other key word. This uses google book API to retrive informations about the books
+                    The Books API is a way to search and access that content, as well as to create and view personalization around that content
+                </p>
+                <form #searchForm="ngForm">
+                    <div class="mt-5">
+                        <i class="material-icons left">image_search</i>
+                        <input type="text" class="mb-3" name="searchVariable" placeholder="" autocomplete="off" ngModel required/>
+                        <button type="submit" class="btn btn-danger mr-3" (click)="onSubmit(searchForm)">Search</button>
+                        <button type="submit" class="btn btn-success" (click)="resetSearch(searchForm)">Reset</button>
+                    </div>
+                </form>
+                </div>
+            <div *ngIf="!isHidden">
+            <div class="card-deck ml-4">
+            <div class="card-single" *ngFor="let item of items">
+                <form #bookaddForm="ngForm">
+                        <div class="card" style=" height:300px;">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src={{item.volumeInfo.imageLinks?.smallThumbnail}} height="200px">
+                                <!-- <a class="activator btn-floating halfway-fab waves-effect waves-lightmb-4"></a> -->
+                              </div>
+                              <div class="card-content">
+                                <p class="grey-text text-darken-4">{{item?.volumeInfo.title}}</p>
+                              </div>
+                                <div class="card-footer">
+                                <i class="material-icons dp48 waves-effect waves-light mr-4" (click)="setTitle(item);passToDB(item);">bookmark</i>
+                                <a href={{item.saleInfo.buyLink}} target="_blank" class="mt-3"><i class="material-icons dp48 waves-effect waves-light mr-4">add_shopping_cart</i></a>
+                                <a href={{item.accessInfo.webReaderLink}} target="_blank" class="mt-3"> <i class="material-icons dp48 waves-effect waves-light">library_books</i></a>
+                                <!-- <button (click)="setTitle(item);passToDB(item);" class="btn btn-success mt-4">Add</button>  -->
+                              </div>
+                              <div class="card-reveal">
+                                <i class="card-title material-icons right">close</i>
+                                <span class="grey-text text-darken-4 font-weight-bold">{{item?.volumeInfo.title}}</span>
+                                <p class="mt-3"><span class="font-weight-bold">Author : </span> {{item?.volumeInfo.authors}}</p>
+                                <p class="sr-only">{{item.volumeInfo.description}}</p>
+                                <p class="mt-1"><span class="font-weight-bold">Publish Date : </span>{{item.volumeInfo.publishedDate}}</p>
+                                <P class="mt-1"><span class="font-weight-bold">Pages : </span> {{item.volumeInfo.pageCount}}</P>
+                                <P class="mt-1"><span class="font-weight-bold">Category : </span> {{item.volumeInfo.categories}}</P>
+                                <P class="mt-1"><span class="font-weight-bold">Retail Price : </span> {{item.saleInfo.retailPrice?.amount}}   {{item.saleInfo.retailPrice?.currencyCode}}</P>
+                                <i class="material-icons dp48 mt-1">add_shopping_cart</i><a href={{item.saleInfo.buyLink}} target="_blank" class="mt-3">Buy Book</a><br>
+                                <i class="material-icons dp48 mt-2">library_books</i><a href={{item.accessInfo.webReaderLink}} target="_blank" class="mt-1">Read Book</a>
+                                
+                                
+                              </div>
+                        </div>
+                        
+                      
+
+                <!-- <table class="responsive-table">
+                <tr>
+                <td class="frsCol">
+                    <p class="sr-only">{{item.volumeInfo.imageLinks?.thumbnail}}</p>
+                    <img class="bookImg" src={{item.volumeInfo.imageLinks?.thumbnail}} alt="Smiley face">
+                </td>
+                <td class="secCol">
+                <p>Title: {{item?.volumeInfo.title}}</p>
+                <p>Author: {{item?.volumeInfo.authors}}</p>
+                <p class="sr-only">{{item.volumeInfo.description}}</p>
+                <button (click)="setTitle(item);passToDB(item);" class="btn btn-success mt-4">Add</button>
+                </td>
+                <p class="d-block d-sm-none">---------------</p>
+                </tr>
+                </table> -->
+                </form>  
+            </div>
+        </div>
+            </div> 
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div *ngFor="let bk of bookservice.books ;let i = index">
                 <div class="card">
                 <div class="cardTitle">
@@ -42,76 +117,14 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">Coming Soon</div>
+
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">Coming Soon</div>
       </div>
       
 
 
-<!-- <a class="f30" (click)="refreshBookList()">My Wish List</a> -->
-    <!-- <p>{{childemail}}</p> -->
- <!-- <app-book [childtitle]="Title" [childauthor]="Author" [childdes]="Des"  ></app-book> -->
- <!-- <div *ngFor="let bk of bookservice.books ;let i = index">
-    <div class="card">
-    <div class="cardTitle">
-    <div *ngIf="bk?.title">
-    <div class="expandCollapse font-weight-bold text-wrap">
-        <a (click)="toggle(i)">
-            <p>{{bk.title}}</p>
-        </a>
-    </div>
-    </div>
-    </div>
-    <div class="expandCollapseContent" *ngIf="hideRuleContent[i]">
-    <p class="mb-3"><span class="font-weight-bold">Author: </span>  {{bk.author}}</p>
-    <p class="mb-3"><span class="font-weight-bold">About: </span>{{bk.description}}</p>
-    <div class="removeButton">
-    <a class="btn btn-success mr-3" (click)="onView(bk)">View</a>
-    <a class="btn btn-danger" (click)="onDelete(bk._id)">Remove</a>
-    </div>
-    </div>
-    </div>
-</div> -->
-</div>
-<div class="col-5">
-    <div class="container">
-        <div class="mb-5">
-        <h1>Search Books</h1>
-        <form #searchForm="ngForm">
-            <div class="form-group">
-                <input type="text" class="form-control mt-10" name="searchVariable" placeholder="Search for books" autocomplete="off" ngModel required/>
-            </div>
-                <button type="submit" class="btn btn-danger mr-3" (click)="onSubmit(searchForm)">Search</button>
-                <button type="submit" class="btn btn-success" (click)="resetSearch(searchForm)">Reset</button>
-        </form>
-        </div>
-    <div *ngIf="!isHidden">
-    <div *ngFor="let item of items">
-        
-        <form #bookaddForm="ngForm">
-        <table class="responsive-table">
-        <tr>
-        <td class="frsCol">
-            <p class="sr-only">{{item.volumeInfo.imageLinks?.thumbnail}}</p>
-            <img class="bookImg" src={{item.volumeInfo.imageLinks?.thumbnail}} alt="Smiley face">
-        </td>
-        <td class="secCol">
-        <p>Title: {{item?.volumeInfo.title}}</p>
-        <p>Author: {{item?.volumeInfo.authors}}</p>
-        <p class="sr-only">{{item.volumeInfo.description}}</p>
-        <button (click)="setTitle(item);passToDB(item);" class="btn btn-success mt-4">Add</button>
-        </td>
-        <p class="d-block d-sm-none">---------------</p>
-        </tr>
-        </table>
-        </form>
-        
-    </div>
-    </div> 
-    </div>
-    
-</div>
-</div>
+
+
 </div>
 </div>
 

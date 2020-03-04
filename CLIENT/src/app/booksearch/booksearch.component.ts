@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import {BookService} from '../services/book.service';
 import {Book} from '../shared/book.model';
 
+
 declare var M:any;
 
 
@@ -24,14 +25,13 @@ export class BooksearchComponent implements OnInit {
   searchText;
   @Input() childname:String;
   @Input() public childemail:any;
+
+ 
   
   public hideRuleContent:boolean[] = [];
   public buttonName:any = 'Expand';
   public isHidden: boolean;
   public mail:any;
-  
-  
-  
   toggle(index) {
     // toggle based on index
     this.hideRuleContent[index] = !this.hideRuleContent[index];
@@ -52,6 +52,7 @@ export class BooksearchComponent implements OnInit {
       //console.log("test");
       //console.log(this.items[1].volumeInfo.imageLinks.thumbnail);
       //console.log(form.value.searchVariable);
+      console.log(this.items[0].saleInfo.listPrice.currencyCode);
     });
   }
 

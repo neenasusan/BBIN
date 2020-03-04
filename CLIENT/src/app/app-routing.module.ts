@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {BooksearchComponent} from './booksearch/booksearch.component';
 import {BookComponent} from './book/book.component';
+import {AboutComponent} from './about/about.component';
 import {UserComponent} from './user/user.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
@@ -32,7 +33,8 @@ const routes: Routes = [
     children:[{path:'',component:NavComponent},{path:'',component:BooksearchComponent}]
   },
 
-  { path: 'home', component: BookComponent},
+  { path: 'about', component: AboutComponent},
+  { path: 'book', component: BookComponent,canActivate:[AuthGuard]},
   {
     path:'',
     redirectTo:'userprofile',
