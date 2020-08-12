@@ -13,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 export class GoogleapiService {
 
   
-  API_KEY = 'AIzaSyDHDCI5JYsbDRGRa5nx252a0kv43XwCpvE';
+  API_KEY = '';
 
   constructor(private httpClient: HttpClient) { }
 
